@@ -13,12 +13,14 @@ Guidance for Claude Code when working in this Unity project.
 
 ## Unity CLI
 
-Unity is **not on PATH**. Use the full editor path. Start every PowerShell session with:
+Unity is **not on PATH**. Use the full editor path. Start every PowerShell session at the project root with:
 
 ```powershell
-$UNITY  = "C:\Program Files\Unity\Hub\Editor\6000.4.7f1\Editor\Unity.exe"
-$PROJ   = "c:\Users\eard8\projects\panel_scene_unity"
+$UNITY = "C:\Program Files\Unity\Hub\Editor\6000.4.7f1\Editor\Unity.exe"
+$PROJ  = $PWD.Path  # examples below assume PowerShell is in the project root
 ```
+
+(`$UNITY` is the default Unity Hub install path on Windows; adjust if you installed elsewhere.)
 
 Common flags:
 
@@ -170,11 +172,11 @@ public static class SceneTools
 
 ## Bootstrap recipe (run once)
 
-The project directory is currently empty. To scaffold from the HDRP template:
+Historical record of how this project was scaffolded — left here so future contributors can re-create the environment from scratch if needed. Run from an empty directory:
 
 ```powershell
 $UNITY    = "C:\Program Files\Unity\Hub\Editor\6000.4.7f1\Editor\Unity.exe"
-$PROJ     = "c:\Users\eard8\projects\panel_scene_unity"
+$PROJ     = (Resolve-Path .).Path   # or any absolute path to an empty directory
 $TEMPLATE = "C:\Program Files\Unity\Hub\Editor\6000.4.7f1\Editor\Data\Resources\PackageManager\ProjectTemplates\com.unity.template.3d-high-end-17.0.7.tgz"
 
 # 1. Create the project from the HDRP template (first run can take 5–10 min: package resolution + import).

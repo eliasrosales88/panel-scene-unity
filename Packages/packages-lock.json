@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.statesync.unity": {
+      "version": "file:com.statesync.unity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.burst": {
       "version": "1.8.29",
       "depth": 2,

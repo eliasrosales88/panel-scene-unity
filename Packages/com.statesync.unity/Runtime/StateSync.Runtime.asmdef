@@ -1,10 +1,7 @@
 {
-    "name": "Project.Runtime",
-    "rootNamespace": "Project",
-    "references": [
-        "Unity.InputSystem",
-        "StateSync.Runtime"
-    ],
+    "name": "StateSync.Runtime",
+    "rootNamespace": "StateSync",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 using Project.Runtime;
+using StateSync.Diagnostics;
+using StateSync.Server;
+using StateSync.Sync;
+using StateSync.Threading;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -112,6 +116,20 @@ namespace Project.Editor
                 volume.isGlobal = true;
                 volume.priority = 0;
                 volume.sharedProfile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(VolumeProfilePath);
+
+                // StateSync — WebSocket bridge for host/follower panel rotation.
+                // Both publisher and receiver are attached; each self-disables based on ConnectionConfig.IsHost.
+                var netGO = new GameObject("StateSync");
+                netGO.AddComponent<MainThreadDispatcher>();
+                var server = netGO.AddComponent<WsServer>();
+                var publisher = netGO.AddComponent<TransformRotationPublisher>();
+                AssignSerializedRef(publisher, "target", panel.transform);
+                AssignSerializedRef(publisher, "server", server);
+                var receiver = netGO.AddComponent<TransformRotationReceiver>();
+                AssignSerializedRef(receiver, "target", panel.transform);
+                AssignSerializedRef(receiver, "server", server);
+                var overlay = netGO.AddComponent<NetStatusOverlay>();
+                AssignSerializedRef(overlay, "server", server);
 
                 EditorSceneManager.MarkSceneDirty(scene);
                 EditorSceneManager.SaveScene(scene, ScenePath);

@@ -1,11 +1,12 @@
 {
-    "name": "Project.Runtime",
-    "rootNamespace": "Project",
+    "name": "StateSync.Editor",
+    "rootNamespace": "StateSync.Editor",
     "references": [
-        "Unity.InputSystem",
         "StateSync.Runtime"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

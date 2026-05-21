@@ -1,3 +1,4 @@
+using StateSync.Config;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,8 +13,11 @@ namespace Project.Runtime
         float _yaw;
         float _pitch;
 
-        void Start()
+        void Awake()
         {
+            // Followers don't drive the panel locally — the receiver does.
+            if (!ConnectionConfig.IsHost) { enabled = false; return; }
+
             Vector3 e = transform.rotation.eulerAngles;
             _yaw = e.y;
             _pitch = Normalize(e.x);

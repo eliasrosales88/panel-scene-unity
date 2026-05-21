@@ -1,0 +1,14 @@
+{
+  "name": "com.statesync.unity",
+  "version": "1.0.0",
+  "displayName": "State Sync",
+  "description": "Lightweight WebSocket-based state sync (host/follower) for Unity. Built on .NET BCL — zero external dependencies. Includes a Transform-rotation publisher/receiver out of the box; extensible for custom state via the codec interface.",
+  "unity": "2022.3",
+  "keywords": [
+    "websocket",
+    "networking",
+    "sync",
+    "ipc"
+  ],
+  "license": "MIT"
+}

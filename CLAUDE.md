@@ -204,6 +204,40 @@ After bootstrap, validate with a build:
 echo "Exit: $LASTEXITCODE"
 ```
 
+## Scene authoring tools
+
+The current scene (`Main.unity`) is a pearl-blue car paint panel showcase. Rebuild it from scratch via:
+
+```powershell
+& $UNITY -batchmode -nographics -projectPath . -executeMethod Project.Editor.SceneBuilder.BuildPanelScene -logFile - -quit
+```
+
+`SceneBuilder` is idempotent — wipes all root GameObjects in `Main.unity` and rebuilds: Panel (22×30×0.3 cm) + Pedestal + Backdrop + Floor + Camera + Sun + 2 Area Lights + Global Volume. Material `PearlBlueCarPaint.mat` is cloned from the imported HDRP `CoatedCarPaint_Stacklit.mat` sample and tinted.
+
+If `Assets/Samples/High Definition Render Pipeline/` is missing (fresh clone), run the import first:
+
+```powershell
+& $UNITY -batchmode -nographics -projectPath . -executeMethod Project.Editor.SampleImporter.ImportMaterialSamples -logFile - -quit
+```
+
+Other one-shot Editor methods:
+- `Project.Editor.HdrpQualityTuner.EnableSsr` — enables Screen Space Reflections on the active HDRP quality asset
+- `Project.Editor.VolumeProfileTuner.AddHdriSky` — adds an HDRI sky override to `SkyandFogSettingsProfile.asset`
+
+Runtime interaction (in the built player or Play mode):
+
+| Input | Effect |
+|---|---|
+| Left-drag | Rotate panel (yaw on world Y, pitch on local X, clamped ±85°) |
+| Right-drag | Orbit camera around the panel |
+| Mouse wheel | Dolly camera (radius 0.15–2.5 m) |
+| Middle-drag | Pan camera focus |
+
+Scripts:
+- `Assets/_Project/Scripts/Runtime/PanelRotator.cs` — left-drag panel rotation
+- `Assets/_Project/Scripts/Runtime/OrbitCamera.cs` — right/middle-drag + wheel camera control
+- Both use the new Input System directly via `Mouse.current`.
+
 ## Working agreements for Claude in this repo
 
 - Before any CLI command, set `$UNITY` and `$PROJ` if they're not already set in the current shell — do not assume.

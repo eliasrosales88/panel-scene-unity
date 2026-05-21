@@ -2,7 +2,9 @@
     "name": "Project.Editor",
     "rootNamespace": "Project.Editor",
     "references": [
-        "Project.Runtime"
+        "Project.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.HighDefinition.Runtime"
     ],
     "includePlatforms": [
         "Editor"

@@ -72,3 +72,8 @@ crashlytics-build.properties
 
 # Bootstrap log (kept in %TEMP%, but ignore if it ever lands here)
 unity-bootstrap.log
+
+# Imported HDRP MaterialSamples — regenerate locally via
+# Project.Editor.SampleImporter.ImportMaterialSamples
+/[Aa]ssets/[Ss]amples/
+/[Aa]ssets/[Ss]amples.meta

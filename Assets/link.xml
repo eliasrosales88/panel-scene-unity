@@ -1,21 +1,12 @@
 <linker>
     <!--
-      Preserve System.Net.HttpListener and System.Net.WebSockets types from IL2CPP
-      stripping. They are used by Packages/com.statesync.unity (WsServer) but are
-      only referenced through async APIs that the IL2CPP byte-code analyzer can miss.
+      Preserve System.Net.Sockets types used by Packages/com.statesync.unity (WsServer)
+      from IL2CPP stripping. The Mono backend doesn't need this, but having it costs
+      nothing and protects future IL2CPP builds.
     -->
     <assembly fullname="System">
-        <type fullname="System.Net.HttpListener" preserve="all"/>
-        <type fullname="System.Net.HttpListenerContext" preserve="all"/>
-        <type fullname="System.Net.HttpListenerRequest" preserve="all"/>
-        <type fullname="System.Net.HttpListenerResponse" preserve="all"/>
-        <type fullname="System.Net.WebSockets.HttpListenerWebSocketContext" preserve="all"/>
-    </assembly>
-    <assembly fullname="System.Net.HttpListener">
-        <type fullname="System.Net.HttpListener" preserve="all"/>
-    </assembly>
-    <assembly fullname="System.Net.WebSockets">
-        <type fullname="System.Net.WebSockets.WebSocket" preserve="all"/>
-        <type fullname="System.Net.WebSockets.WebSocketContext" preserve="all"/>
+        <type fullname="System.Net.Sockets.TcpListener" preserve="all"/>
+        <type fullname="System.Net.Sockets.TcpClient" preserve="all"/>
+        <type fullname="System.Net.Sockets.NetworkStream" preserve="all"/>
     </assembly>
 </linker>

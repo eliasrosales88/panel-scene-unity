@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 623973775}
   - component: {fileID: 623973774}
   - component: {fileID: 623973773}
+  - component: {fileID: 623973778}
   - component: {fileID: 623973772}
   m_Layer: 0
   m_Name: StateSync
@@ -440,6 +441,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: StateSync.Runtime::StateSync.Server.WsServer
   portOverride: 0
+--- !u!114 &623973778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623973771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e116a507e04b80efb8793916b1fb3b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: StateSync.Runtime::StateSync.Sync.HostRotationApplier
+  target: {fileID: 117480991}
+  server: {fileID: 623973775}
+  pitchLimitDeg: 85
 --- !u!114 &623973776
 MonoBehaviour:
   m_ObjectHideFlags: 0

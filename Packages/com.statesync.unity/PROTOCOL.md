@@ -82,7 +82,7 @@ client                              server
    - **Throttle**: at most **30 Hz** between consecutive sends.
    - **Threshold**: only send when `|deltaAngle| ≥ 0.05°` from last sent value.
    - **Heartbeat**: if neither throttle nor threshold has emitted in **1 s**, send a heartbeat `rotation` with the current value. Prevents drift between sender and follower.
-4. Followers MAY send `rotation` messages to drive the server's Transform. Hosts MUST ignore inbound `rotation`.
+4. Any client MAY send `rotation` messages to drive the server's Transform. On a follower, `TransformRotationReceiver` consumes them. On a host, inbound `rotation` is ignored unless a `HostRotationApplier` is attached — in that case the host applies the pose and its publisher re-broadcasts the result to **all** clients, including the sender. External drivers (e.g. a control panel UI) should suppress their own echo while actively sending.
 5. Either side closes with `WebSocketCloseStatus.NormalClosure` (1000).
 
 ## Send-rate optimization rationale

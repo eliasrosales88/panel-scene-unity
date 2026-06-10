@@ -128,6 +128,12 @@ namespace Project.Editor
                 var receiver = netGO.AddComponent<TransformRotationReceiver>();
                 AssignSerializedRef(receiver, "target", panel.transform);
                 AssignSerializedRef(receiver, "server", server);
+                // Lets external WS clients (the Electron control panel) drive the
+                // panel rotation while running as host; the publisher echoes the
+                // resulting pose back to every client.
+                var applier = netGO.AddComponent<HostRotationApplier>();
+                AssignSerializedRef(applier, "target", panel.transform);
+                AssignSerializedRef(applier, "server", server);
                 var overlay = netGO.AddComponent<NetStatusOverlay>();
                 AssignSerializedRef(overlay, "server", server);
 

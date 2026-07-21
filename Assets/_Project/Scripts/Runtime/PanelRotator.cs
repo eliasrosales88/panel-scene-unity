@@ -12,15 +12,14 @@ namespace Project.Runtime
 
         float _yaw;
         float _pitch;
+        float _roll;
 
         void Awake()
         {
             // Followers don't drive the panel locally — the receiver does.
             if (!ConnectionConfig.IsHost) { enabled = false; return; }
 
-            Vector3 e = transform.rotation.eulerAngles;
-            _yaw = e.y;
-            _pitch = Normalize(e.x);
+            SyncFromTransform();
         }
 
         void Update()
@@ -30,12 +29,25 @@ namespace Project.Runtime
             if (!mouse.leftButton.isPressed) return;
             if (mouse.rightButton.isPressed || mouse.middleButton.isPressed) return;
 
+            // External drivers (e.g. HostRotationApplier fed by the Electron panel)
+            // may have rotated the panel since the last drag — re-seed from the
+            // actual transform when a new drag begins so the panel doesn't snap back.
+            if (mouse.leftButton.wasPressedThisFrame) SyncFromTransform();
+
             Vector2 delta = mouse.delta.ReadValue();
             _yaw += delta.x * sensitivity;
             _pitch -= delta.y * sensitivity;
             _pitch = Mathf.Clamp(_pitch, -pitchLimit, pitchLimit);
 
-            transform.rotation = Quaternion.Euler(_pitch, _yaw, 0f);
+            transform.rotation = Quaternion.Euler(_pitch, _yaw, _roll);
+        }
+
+        void SyncFromTransform()
+        {
+            Vector3 e = transform.rotation.eulerAngles;
+            _yaw = e.y;
+            _pitch = Normalize(e.x);
+            _roll = Normalize(e.z);
         }
 
         static float Normalize(float angle)

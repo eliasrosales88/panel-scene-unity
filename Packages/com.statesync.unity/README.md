@@ -55,7 +55,7 @@ Or by git URL once published:
 Three layers, picked according to how much you reuse:
 
 - **Layer 1 — Infrastructure**: `WsServer`, `MainThreadDispatcher`, `JsonCodec`, `InterpolationBuffer`, `ConnectionConfig`. Pipeline-agnostic, no MonoBehaviours except the server and dispatcher.
-- **Layer 2 — Sync components**: `TransformRotationPublisher`, `TransformRotationReceiver`, `NetStatusOverlay`. Drop-in MonoBehaviours for Transform rotation.
+- **Layer 2 — Sync components**: `TransformRotationPublisher`, `TransformRotationReceiver`, `HostRotationApplier`, `NetStatusOverlay`. Drop-in MonoBehaviours for Transform rotation. `HostRotationApplier` lets external WS clients (e.g. the Electron control panel) drive the host's Transform; the publisher echoes the resulting pose to every client.
 - **Layer 3 — Your project**: components that wire a specific Transform / GameObject.
 
 To sync something other than rotation (e.g., position, custom state), implement your own publisher/receiver against Layer 1 — keep using `WsServer`, `MainThreadDispatcher`, and your own `JsonCodec` variant.
